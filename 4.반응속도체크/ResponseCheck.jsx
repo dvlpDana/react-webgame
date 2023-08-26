@@ -7,7 +7,7 @@ const ResponseCheck = () => {
   const timeout = useRef(null);
   const startTime = useRef(0);
   const endTime = useRef(0);
-
+// state는 값이 바뀌면 return 부분이 다시 실행되는 리렌더링이 되지만, ref는 값이 바뀔 때 return 부분이 다시 렌더링 되지 않음
   const onClickScreen = useCallback(() => {
     if (state === 'waiting') {
       timeout.current = setTimeout(() => {
@@ -35,8 +35,10 @@ const ResponseCheck = () => {
   }, []);
 
   const renderAverage = () => {
+    // jsx에서 빈값을 나타낼때는 null 으로 표현 
+    // jsx에서는 for과 if를 사용할 수 없음, 때문에 삼항연산자 또는 ??을 통해 표현
     return result.length === 0
-      ? null
+      ? null 
       : <>
         <div>평균 시간: {result.reduce((a, c) => a + c) / result.length}ms</div>
         <button onClick={onReset}>리셋</button>

@@ -30,6 +30,7 @@ class Lotto extends Component {
       this.timeouts[i] = setTimeout(() => {
         this.setState((prevState) => {
           return {
+            // 배열에 push하는 것이 아니라 이전 state 활용해서 구조분해문법으로 배열에 값 추가하도록 할 것
             winBalls: [...prevState.winBalls, winNumbers[i]],
           };
         });
@@ -50,7 +51,9 @@ class Lotto extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // prevState는 바뀌기 전의 state, this.state는 바뀐 후의 state
     console.log('didUpdate');
+    // this.state.bonus === null || this.state.rede === false
     if (this.state.winBalls.length === 0) {
       this.runTimeouts();
     }
@@ -60,6 +63,7 @@ class Lotto extends Component {
   }
 
   componentWillUnmount() {
+  // setInterval은 메모리 누수를 발생시킬 수 있으므로, 반드시 unmount 해주어야 함
     this.timeouts.forEach((v) => {
       clearTimeout(v);
     });

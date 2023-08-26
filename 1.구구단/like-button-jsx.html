@@ -1,37 +1,59 @@
 <html>
-<head>
-</head>
-<body>
-<div id="root"></div>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-<!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
-<!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
-<script type="text/babel">
-  'use strict';
+  <head> </head>
+  <body>
+    <div id="root"></div>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script type="text/babel">
+      "use strict";
 
-  class LikeButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {liked: false};
-    }
+      class LikeButton extends React.Component {
+        // constructor(props) {
+        //   super(props);
+        //   this.state = { liked: false };
+        // }
 
-    render() {
-      if (this.state.liked) {
-        return 'You liked this.';
+        state = { liked: true };
+
+        onClickButton = () => {
+          this.setState({ liked: true });
+        };
+
+        render() {
+          if (this.state.liked) {
+            return "You liked this.";
+          }
+
+          return (
+            // this.state.liked = true (X) -> 객체를 함부로 바꿀 수 없음(불변성), 복사해라
+            // const array = []; -> pop, push, unshift, splice  : 배열을 직접적으로 수정(리액트에서는 사용 X) / concat, slice : 새로운 배열을 만들어냄
+            // 배열도 객체임, function도 객체임
+
+            // <button onClick={() => this.setState({ liked: true })}>
+            <button onClick={this.onClickButton}>
+              {this.state.liked ? "Liked" : "Like!"}
+              {[1, 2, 3].map((i) => {
+                return <div>{i}</div>;
+              })}
+            </button>
+          );
+        }
       }
-
-      return (
-        <button onClick={() => this.setState({liked: true})}>
-          Like
-        </button>
-      );
-    }
-  }
-</script>
-<script type="text/babel">
-  ReactDOM.render(<LikeButton/>, document.querySelector('#root'));
-</script>
-</body>
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<LikeButton />, document.querySelector("#root")); // React 17 버전 코드
+      ReactDOM.createRoot(document.querySelector("#root")).render(
+        <LikeButton />
+      ); // React 18 버전 코드
+    </script>
+  </body>
 </html>

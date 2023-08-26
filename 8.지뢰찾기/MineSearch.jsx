@@ -13,6 +13,7 @@ export const CODE = {
   OPENED: 0, // 0 이상이면 다 opened
 };
 
+// 값들은 table context에 넣어주면 됨
 export const TableContext = createContext({
   tableData: [],
   halted: true,
@@ -224,6 +225,8 @@ const MineSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { tableData, halted, timer, result } = state;
 
+  // useContext에서 값이 변하게 되면 계속 리렌더링 되면서 새로운 객체를 만들어냄, 그러면 자식들도 계속 리렌더링됨
+  // 때문에 useMemo를 사용해서 쓸데없는 리렌더링을 막아주어야 함, 이를 캐싱한다고 함
   const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
 
   useEffect(() => {
@@ -238,6 +241,8 @@ const MineSearch = () => {
     }
   }, [halted]);
 
+// context api를 사용하면 조부모 -> 부모 -> 자식 -> 증손자 등 
+//  provider 로 묶어주어야 자식 컴포넌트들이 데이터를 사용할 수 있음, 데이터는 value에 넣음
   return (
     <TableContext.Provider value={value}>
       <Form />

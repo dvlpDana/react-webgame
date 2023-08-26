@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-
+// memo 또는 PureComponent를 사용하여 불필요한 rendering을 막자
 const Ball = memo(({ number }) => {
   let background;
   if (number <= 10) {

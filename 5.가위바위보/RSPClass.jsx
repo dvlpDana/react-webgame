@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // 클래스의 경우 -> constructor -> render -> ref -> componentDidMount
 // (setState/props 바뀔때) -> shouldComponentUpdate(true) -> render -> componentDidUpdate
 // 부모가 나를 없앴을 때 -> componentWillUnmount -> 소멸
+// shouldComponentUpdate : 컴포넌트가 바뀌는 부분이 없다면 rerendering 되지 않도록 설정
 
 const rspCoords = {
   바위: '0',
@@ -34,6 +35,8 @@ class RSP extends Component {
   componentDidMount() { // 컴포넌트가 첫 렌더링된 후, 여기에 비동기 요청을 많이 해요
     this.interval = setInterval(this.changeHand, 100);
   }
+
+  // componentDidUpdate() {} // 리렌더링 후,
 
   componentWillUnmount() { // 컴포넌트가 제거되기 직전, 비동기 요청 정리를 많이 해요
     clearInterval(this.interval);

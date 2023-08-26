@@ -1,13 +1,24 @@
-import React, { memo } from 'react';
-import Td from './Td';
+import React, { memo } from "react";
+import Td from "./Td";
 
 const Tr = memo(({ rowData, rowIndex, dispatch }) => {
-  console.log('tr rendered');
+  console.log("tr rendered");
   return (
     <tr>
-      {Array(rowData.length).fill().map((td, i) => (
-        <Td key={i} dispatch={dispatch} rowIndex={rowIndex} cellIndex={i} cellData={rowData[i]}>{''}</Td>
-      ))}
+      {/* https://letsgojieun.tistory.com/105 */}
+      {Array(rowData.length)
+        .fill()
+        .map((td, i) => (
+          <Td
+            key={i}
+            dispatch={dispatch}
+            rowIndex={rowIndex}
+            cellIndex={i}
+            cellData={rowData[i]}
+          >
+            {""}
+          </Td>
+        ))}
     </tr>
   );
 });

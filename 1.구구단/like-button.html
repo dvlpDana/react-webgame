@@ -1,34 +1,64 @@
 <html>
-<head>
-</head>
-<body>
-<div id="root"></div>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
-<!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
-<script>
-  'use strict';
+  <head> </head>
+  <body>
+    <div id="root"></div>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
+    <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+    <script type="text/babel">
+      "use strict";
 
-  const e = React.createElement;
+      const e = React.createElement;
 
-  class LikeButton extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {liked: false};
-    }
+      // class LikeButton extends React.Component {
+      //   constructor(props) {
+      //     super(props);
+      //     this.state = { liked: false };
+      //   }
 
-    render() {
-      if (this.state.liked) {
-        return 'You liked this.';
-      }
+      //   render() {
+      //     if (this.state.liked) {
+      //       return "You liked this.";
+      //     }
 
-      return e('button', {onClick: () => this.setState({liked: true})}, 'Like');
-    }
-  }
-</script>
-<script>
-  ReactDOM.render(e(LikeButton), document.querySelector('#root'));
-</script>
-</body>
+      //     return e(
+      //       "button",
+      //       { onClick: () => this.setState({ liked: true }) },
+      //       "Like"
+      //     );
+      //   }
+      // }
+
+      // 함수 컴포넌트
+      const LikeButton = () => {
+        const [liked, setLiked] = React.useState(false); //구조분해
+        // const [{liked, setLiked}] = React.useState(true); //구조분해
+        // const liked = result[0], const setLiked = result[1];
+        if (liked) {
+          return "You liked this.";
+        }
+        return (
+          <button
+            onClick={() => {
+              setLiked(true);
+            }}
+          >
+            Like
+          </button>
+        );
+      };
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(e(LikeButton), document.querySelector("#root")); //React 17 버전 코드
+      // ReactDOM.createRoot(document.querySelector("#root")).render(<LikeButton />); // React 18 버전 코드
+    </script>
+  </body>
 </html>
